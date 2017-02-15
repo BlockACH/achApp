@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Electron + React + Sass</title>
@@ -7,16 +6,15 @@
 	<div id="react-root"></div>
 	<script>
 
-	var bundlePath = './build/bundle.js';
+	var bundlePath = './build/index.js';
 
 	if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
-		bundlePath = 'http://localhost:8080/build/bundle.js';
+		bundlePath = 'http://localhost:8080/build/index.js';
 	}
 
 	var bundleScriptEl = document.createElement('script');
 	bundleScriptEl.src = bundlePath;
 	document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
-
 
 	</script>
 </body>

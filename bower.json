@@ -1,0 +1,12 @@
+{
+    "name": "ach",
+    "version": "1.0.0",
+    "dependencies": {
+        "jquery": null,
+        "bootstrap": null,
+        "fastclick": null,
+        "pnotify": null,
+        "iCheck": null,
+        "font-awesome": null
+    }
+}
