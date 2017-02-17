@@ -18,7 +18,7 @@ class ContentHandler extends React.Component {
 
     return (
       <div className="col-md-12 col-sm-12 col-xs-12">
-        <h2>歡迎來到票交業務系統</h2>
+        <h2> 歡迎來到票交業務系統 </h2>
       </div>
     );
   }

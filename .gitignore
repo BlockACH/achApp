@@ -10,4 +10,7 @@ build
 # Packaged app
 bin
 
+# bower install
 vendor/
+
+.DS_Store

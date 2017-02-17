@@ -1,9 +1,14 @@
 import React from 'react';
+import TriggerForm from './triggerForm';
 
-class TriggerPage extends React.Component {
-  render() {
-    return (<div> 發動 </div>);
-  }
+function TriggerPage() {
+  return (
+    <div className="row">
+      <div className="col-md-12 col-sm-12 col-xs-12">
+        <TriggerForm />
+      </div>
+    </div>
+  );
 }
 
 export default TriggerPage;
