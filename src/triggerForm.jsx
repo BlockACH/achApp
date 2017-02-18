@@ -32,7 +32,6 @@ function TriggerForm() {
                 data-validate-length-range={6}
                 data-validate-words={2}
                 name="name"
-                placeholder="both name(s) e.g Jon Doe"
                 required="required" type="text"
               />
             </div>

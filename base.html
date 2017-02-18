@@ -16,6 +16,8 @@
     <!-- PNotify -->
     <link href="vendor/pnotify/dist/pnotify.css" rel="stylesheet">
     <link href="vendor/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="vendor/datatable/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="static/css/custom.min.css" rel="stylesheet">
   </head>
@@ -44,15 +46,15 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> 業務 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li id='trigger'><a>發動</a></li>
-                      <li><a>收受</a></li>
-                      <li><a>TCH 審核</a></li>
+                      <li id="trigger"><a>發動</a></li>
+                      <li id="recieve"><a>收受</a></li>
+                      <li id="tch-check"><a>TCH 審核</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> 記錄查詢 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a>清算實況</a></li>
-                      <li><a>交易列表</a></li>
+                      <li><a id="settle">清算實況</a></li>
+                      <li><a id="tx-list">交易列表</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -132,7 +134,9 @@
     <script src="vendor/pnotify/dist/pnotify.nonblock.js"></script>
     <!-- iCheck -->
     <script src="vendor/iCheck/icheck.min.js"></script>
-
+    <!-- Datatables -->
+    <script src="vendor/datatable/media/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatable/media/js/dataTables.bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="static/js/custom.js"></script>
 
