@@ -8,7 +8,6 @@ function Tr(props) {
       <td>{props.type}</td>
       <td>{props.amount}</td>
       <td>
-        <a className="btn btn-primary btn-xs"><i className="fa fa-folder" /> 細節 </a>
         <a className="btn btn-info btn-xs"><i className="fa fa-pencil" /> 同意 </a>
         <a className="btn btn-danger btn-xs"><i className="fa fa-trash-o" /> 拒絕 </a>
       </td>

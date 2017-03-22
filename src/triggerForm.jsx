@@ -98,6 +98,8 @@ function TriggerForm() {
             <div className="col-md-6 col-md-offset-3">
               <button type="submit" className="btn btn-primary">Cancel</button>
               <button id="send" type="submit" className="btn btn-success">Submit</button>
+              <button id="history-collect" type="submit" className="btn btn-dark">歷史代收資料</button>
+              <button id="history-pay" type="submit" className="btn btn-dark">歷史代付資料</button>
             </div>
           </div>
         </form>
