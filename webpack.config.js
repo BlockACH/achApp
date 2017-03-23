@@ -8,7 +8,6 @@ module.exports = {
   entry: {
     index: './index.jsx',
     base: './base.jsx',
-    trigger: './trigger.jsx'
   },
   output: {
     path: __dirname + '/build',
