@@ -8,30 +8,23 @@ function TriggerForm() {
         <div className="clearfix" />
       </div>
       <div className="x_content">
-        <form className="form-horizontal form-label-left" noValidate>
-          {
-          // <p>For alternative validation library
-          //   <code>parsleyJS</code>
-          //     check out in the
-          //     <a href="form.html">form page</a>
-          // </p>
-          }
+        <form className="form-horizontal form-label-left" >
           <span className="section">發動交易資料</span>
           <div className="item form-group">
             <label
               className="control-label col-md-3 col-sm-3 col-xs-12"
-              htmlFor="name"
+              htmlFor="trigger-bank"
             >
             發動行
             <span className="required">*</span>
             </label>
             <div className="col-md-6 col-sm-6 col-xs-12">
               <input
-                id="name"
+                id="trigger-bank"
                 className="form-control col-md-7 col-xs-12"
                 data-validate-length-range={6}
                 data-validate-words={2}
-                name="name"
+                name="trigger-bank"
                 required="required" type="text"
               />
             </div>
@@ -39,16 +32,16 @@ function TriggerForm() {
           <div className="item form-group">
             <label
               className="control-label col-md-3 col-sm-3 col-xs-12"
-              htmlFor="email"
+              htmlFor="receive-bank"
             >
             收受行
             <span className="required">*</span>
             </label>
             <div className="col-md-6 col-sm-6 col-xs-12">
               <input
-                type="email"
-                id="email"
-                name="email"
+                type="text"
+                id="receive-bank"
+                name="receive-bank"
                 required="required"
                 className="form-control col-md-7 col-xs-12"
               />
@@ -57,17 +50,16 @@ function TriggerForm() {
           <div className="item form-group">
             <label
               className="control-label col-md-3 col-sm-3 col-xs-12"
-              htmlFor="email"
+              htmlFor="tx-type"
             >
             交易類別（代收、代付、代收退件、代付退件）
             <span className="required">*</span>
             </label>
             <div className="col-md-6 col-sm-6 col-xs-12">
               <input
-                type="email"
-                id="email2"
-                name="confirm_email"
-                data-validate-linked="email"
+                type="text"
+                id="tx-type"
+                name="tx-type"
                 required="required"
                 className="form-control col-md-7 col-xs-12"
               />
@@ -76,7 +68,7 @@ function TriggerForm() {
           <div className="item form-group">
             <label
               className="control-label col-md-3 col-sm-3 col-xs-12"
-              htmlFor="number"
+              htmlFor="amount"
             >
             交易金額
             <span className="required">*</span>
@@ -84,10 +76,10 @@ function TriggerForm() {
             <div className="col-md-6 col-sm-6 col-xs-12">
               <input
                 type="number"
-                id="number"
-                name="number"
+                id="amount"
+                name="amount"
                 required="required"
-                data-validate-minmax="10,100"
+                data-validate-minmax="0,10000000000000"
                 className="form-control col-md-7 col-xs-12"
               />
             </div>
@@ -96,10 +88,10 @@ function TriggerForm() {
           <div className="ln_solid" />
           <div className="form-group">
             <div className="col-md-6 col-md-offset-3">
-              <button type="submit" className="btn btn-primary">Cancel</button>
-              <button id="send" type="submit" className="btn btn-success">Submit</button>
-              <button id="history-collect" type="submit" className="btn btn-dark">歷史代收資料</button>
-              <button id="history-pay" type="submit" className="btn btn-dark">歷史代付資料</button>
+              <button id="cancel" type="button" className="btn btn-primary">Cancel</button>
+              <button id="send" type="button" className="btn btn-success">Submit</button>
+              <button id="history-collect" type="button" className="btn btn-dark">歷史代收資料</button>
+              <button id="history-pay" type="button" className="btn btn-dark">歷史代付資料</button>
             </div>
           </div>
         </form>

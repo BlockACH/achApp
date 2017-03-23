@@ -76,6 +76,8 @@ $(document).ready(function() {
                 setContentHeight();
             });
         } else {
+            // remove all `active` child status first
+            $SIDEBAR_MENU.find('.child_menu').find('li').removeClass('active active-sm');
             // prevent closing menu if we are on child menu
             if (!$li.parent().is('.child_menu')) {
                 $SIDEBAR_MENU.find('li').removeClass('active active-sm');
