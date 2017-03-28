@@ -24,7 +24,7 @@ class SettleTable extends React.Component {
                 <th>銀行</th>
                 <th>銀行代碼</th>
                 <th>Address</th>
-                <th>虛擬貨幣餘額</th>
+                <th>數位貨幣餘額</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@ class SettleTable extends React.Component {
                 amount={951000}
               />
               <SettleTr
-                bank="sadfsaf"
+                bank="第一銀行"
                 bankCode="822"
                 address="1FsasdfwqT4n5Au4mCvBMSEYGFg7xJaNVN2"
                 amount={81200}

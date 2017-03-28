@@ -46,7 +46,7 @@ class CheckTxList extends React.Component {
                 amount={100}
               />
               <Tr
-                pbank="兆豐銀行"
+                pbank="第一銀行"
                 rbank="兆豐銀行"
                 type="代付"
                 amount={3000}
