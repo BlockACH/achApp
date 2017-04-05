@@ -14,3 +14,4 @@ bin
 vendor/
 
 .DS_Store
+*.lock

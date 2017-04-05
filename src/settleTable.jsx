@@ -3,11 +3,41 @@ import React from 'react';
 import SettleTr from './settleTr';
 
 class SettleTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tableData: [],
+      defaultTableData: [],
+    };
+  }
+
   componentDidMount() {
-    $('#datatable').dataTable();
+    fetch('http://ach.csie.org:8514/bank/address')
+      .then(response => response.json())
+      .then((json) => {
+        this.setState({ defaultTableData: json.data });
+      });
+  }
+
+  renderTableBody() {
+    return this.state.tableData.length ?
+      this.state.tableData.map(tx => (
+        <SettleTr
+          bankCode={tx.bankCode}
+          address={tx.address}
+          amount={tx.amount}
+        />)) :
+      Object.keys(this.state.defaultTableData).map(key =>
+        <SettleTr
+          bankCode={key}
+          address={this.state.defaultTableData[key]}
+          amount={0}
+        />);
   }
 
   render() {
+    const renderedTableBody = this.renderTableBody();
     return (
       <div className="x_panel">
         <div className="x_title">
@@ -21,38 +51,12 @@ class SettleTable extends React.Component {
           <table id="datatable" className="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>銀行</th>
                 <th>銀行代碼</th>
-                <th>Address</th>
+                <th>銀行地址</th>
                 <th>數位貨幣餘額</th>
               </tr>
             </thead>
-            <tbody>
-              <SettleTr
-                bank="玉山商業銀行"
-                bankCode="6AB"
-                address="1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"
-                amount={100000}
-              />
-              <SettleTr
-                bank="兆豐國際商業銀行"
-                bankCode="A2B"
-                address="1CvBMSEYsasdfwqTFn5Au4m4GFg7xJaNVN2"
-                amount={970000}
-              />
-              <SettleTr
-                bank="匯豐（台灣）商業銀行"
-                bankCode="46E"
-                address="1Fn5Au4mCvBMSEYsasdfwqT4GFg7xJaNVN2"
-                amount={951000}
-              />
-              <SettleTr
-                bank="第一銀行"
-                bankCode="822"
-                address="1FsasdfwqT4n5Au4mCvBMSEYGFg7xJaNVN2"
-                amount={81200}
-              />
-            </tbody>
+            <tbody>{renderedTableBody}</tbody>
           </table>
         </div>
       </div>
