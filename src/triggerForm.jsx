@@ -138,5 +138,4 @@ class TriggerForm extends React.Component {
   }
 }
 
-
 export default TriggerForm;

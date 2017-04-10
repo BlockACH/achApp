@@ -13,7 +13,7 @@ class SettleTable extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8514/bank/address')
+    fetch('http://ach.csie.org:8514/bank/address')
       .then(response => response.json())
       .then((json) => {
         this.setState({ defaultTableData: json.data });

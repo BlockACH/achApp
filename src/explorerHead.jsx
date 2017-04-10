@@ -9,8 +9,6 @@ class ExplorerHead extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    };
     this.changeHandler = this.changeHandler.bind(this);
   }
 

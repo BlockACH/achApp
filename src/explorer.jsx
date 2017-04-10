@@ -2,7 +2,7 @@
 import React from 'react';
 import ExplorerCell from './explorerCell';
 import ExplorerHead from './explorerHead';
-import blocksData from './blocks';
+import blocksData from '../mock/blocks';
 
 class Explorer extends React.Component {
   constructor(props) {
@@ -17,10 +17,6 @@ class Explorer extends React.Component {
     };
 
     this.changePageType = this.changePageType.bind(this);
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount!');
   }
 
   changePageType(pageData) {
@@ -39,7 +35,7 @@ class Explorer extends React.Component {
       null;
   }
 
-  renderBlocks() {
+  renderCells() {
     return this.state.pageType === 'Dashboard' ?
       blocksData.blocks.map(block => (
         <ExplorerCell
@@ -55,21 +51,11 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const renderedHead = this.renderHead();
-    const renderedCells = this.renderBlocks();
     return (
       <div>
-        {renderedHead}
+        {this.renderHead()}
         <h1>{this.state.cellType}</h1>
-        {renderedCells}
-        {/* <ExplorerCell
-          cellType={this.state.cellType}
-          timestamp={14000000}
-        />
-        <ExplorerCell
-          cellType="Transactions"
-          timestamp={14000000}
-        /> */}
+        {this.renderCells()}
       </div>
     );
   }

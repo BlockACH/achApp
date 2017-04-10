@@ -27,7 +27,6 @@ class CheckTxList extends React.Component {
         </div>
         <div className="x_content">
           <p>{this.props.subtitle}</p>
-          {/* start project list */}
           <table className="table table-striped projects">
             <thead>
               <tr>
@@ -59,7 +58,6 @@ class CheckTxList extends React.Component {
               />
             </tbody>
           </table>
-          {/* end project list */}
         </div>
       </div>
     );
