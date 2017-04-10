@@ -7,6 +7,7 @@ import RecievePage from './recieve';
 import TchPage from './tch';
 import TxListPage from './txList';
 import SettlePage from './settle';
+import ExplorerPage from './explorer';
 
 class ContentHandler extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ContentHandler extends React.Component {
 
     return (
       <div className="col-md-12 col-sm-12 col-xs-12">
-        <h2> 歡迎來到票交業務系統 </h2>
+        <h2> 歡迎來到媒體交換業務 </h2>
       </div>
     );
   }
@@ -64,6 +65,12 @@ $(document).ready(() => {
   $('#settle').on('click', () => {
     pageContent.setState({
       page: <SettlePage />,
+    });
+  });
+
+  $('#explorer').on('click', () => {
+    pageContent.setState({
+      page: <ExplorerPage />,
     });
   });
 });
