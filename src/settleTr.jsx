@@ -3,9 +3,9 @@ import React from 'react';
 function SettleTr(props) {
   return (
     <tr>
-      <td className="red">{props.bankCode}</td>
-      <td className="red">{props.address}</td>
-      <td className="red">{props.amount}</td>
+      <td>{props.bankCode}</td>
+      <td>{props.address}</td>
+      <td className={props.amount < 1000 ? 'red' : ''}>{props.amount}</td>
     </tr>
   );
 }
