@@ -71,33 +71,20 @@ class ExplorerHead extends React.Component {
         </div>
         <div className="x_panel">
           <div className="row tile_count">
-            <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-clock-o" /> Best Blocks</span>
-              <div className="count">214124</div>
+              <div className="count">29</div>
               <span className="count_bottom"> block #</span>
             </div>
-            <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-clock-o" /> Last Blocks</span>
-              <div className="count">0 </div>
+              <div className="count">29 </div>
               <span className="count_bottom">sec ago</span>
             </div>
-            <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-user" /> Difficulty</span>
-              <div className="count red">159.03</div>
-              <span className="count_bottom"><i className="red"><i className="fa fa-sort-desc" />TH </i></span>
-            </div>
-            <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span className="count_top"><i className="fa fa-user" /> Active Nodes</span>
-              <div className="count green">62/64</div>
-            </div>
-            <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span className="count_top"><i className="fa fa-user" /> Active Nodes</span>
-              <div className="count green">62/64</div>
-            </div>
-            <div className="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span className="count_top"><i className="fa fa-user" /> Total Connections</span>
-              <div className="count">7,325</div>
-              <span className="count_bottom"><i className="green"><i className="fa fa-sort-asc" />34% </i> From last Week</span>
+              <div className="count red">31.03</div>
+              <span className="count_bottom"><i className="red">TH </i></span>
             </div>
           </div>
         </div>
