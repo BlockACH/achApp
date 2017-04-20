@@ -3,17 +3,25 @@ import React from 'react';
 class ExplorerHead extends React.Component {
   static get propTypes() {
     return {
-      searchBarChange: React.PropTypes.func.isRequired,
+      searchBarClick: React.PropTypes.func.isRequired,
     };
   }
 
   constructor(props) {
     super(props);
-    this.changeHandler = this.changeHandler.bind(this);
+    this.state = {
+      input: '',
+    };
+    this.clickHandler = this.clickHandler.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  changeHandler(e) {
-    const value = e.target.value;
+  handleInputChange(e) {
+    this.setState({ input: e.target.value });
+  }
+
+  clickHandler() {
+    const value = this.state.input;
     let pageType;
     let cellType;
     let address;
@@ -42,8 +50,8 @@ class ExplorerHead extends React.Component {
       txHash = value;
       blockHash = '';
     }
-    console.log('in changeHandler');
-    this.props.searchBarChange({
+    console.log('in clickHandler');
+    this.props.searchBarClick({
       pageType,
       cellType,
       address,
@@ -61,10 +69,16 @@ class ExplorerHead extends React.Component {
               type="text"
               className="form-control"
               placeholder="Search for block, transaction and address."
-              onChange={this.changeHandler}
+              onChange={this.handleInputChange}
             >
               <span className="input-group-btn">
-                <button className="btn btn-default" type="button">Go!</button>
+                <button
+                  className="btn btn-default"
+                  type="button"
+                  onClick={this.clickHandler}
+                >
+                  Go!
+                </button>
               </span>
             </input>
           </div>
@@ -73,7 +87,7 @@ class ExplorerHead extends React.Component {
           <div className="row tile_count">
             <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-clock-o" /> Best Blocks</span>
-              <div className="count">29</div>
+              <div className="count">37</div>
               <span className="count_bottom"> block #</span>
             </div>
             <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
@@ -82,9 +96,8 @@ class ExplorerHead extends React.Component {
               <span className="count_bottom">sec ago</span>
             </div>
             <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
-              <span className="count_top"><i className="fa fa-user" /> Difficulty</span>
-              <div className="count red">31.03</div>
-              <span className="count_bottom"><i className="red">TH </i></span>
+              <span className="count_top"><i className="fa fa-user" /> Health</span>
+              <div className="count green">Alive</div>
             </div>
           </div>
         </div>

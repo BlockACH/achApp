@@ -9,7 +9,7 @@ class Explorer extends React.Component {
     super(props);
     this.state = {
       historyData: {},
-      cellType: 'Transactions',
+      cellType: 'Blocks',
       pageType: 'Dashboard', // 'Dashboard', 'Block', 'Address', 'Transaction'
       address: '',
       txHash: '',
@@ -17,6 +17,7 @@ class Explorer extends React.Component {
     };
 
     this.changePageType = this.changePageType.bind(this);
+    this.backButtonClick = this.backButtonClick.bind(this);
   }
 
   changePageType(pageData) {
@@ -29,9 +30,18 @@ class Explorer extends React.Component {
     });
   }
 
+  backButtonClick() {
+    this.setState({ pageType: 'Dashboard' });
+  }
+
+  renderBackButton() {
+    return this.state.pageType !== 'Dashboard' ?
+      <button onClick={this.backButtonClick} >Back</button> : null;
+  }
+
   renderHead() {
     return this.state.pageType === 'Dashboard' ?
-      <ExplorerHead searchBarChange={this.changePageType} /> :
+      <ExplorerHead searchBarClick={this.changePageType} /> :
       null;
   }
 
@@ -53,6 +63,7 @@ class Explorer extends React.Component {
   render() {
     return (
       <div>
+        {this.renderBackButton()}
         {this.renderHead()}
         <h1>{this.state.cellType}</h1>
         {this.renderCells()}
