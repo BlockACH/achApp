@@ -1,3 +1,5 @@
+/* global $:true*/
+
 import React from 'react';
 
 class TriggerForm extends React.Component {
@@ -13,7 +15,8 @@ class TriggerForm extends React.Component {
   }
 
   getHistoryData(txType) {
-    fetch(`http://ach.csie.org:8514/history-data/collect?txtype=${txType}`)
+    const port = $('#bank-port').html();
+    fetch(`http://ach.csie.org:${port}/history-data/collect?txtype=${txType}`)
       .then(response => response.json())
       .then((json) => {
         this.setState({ historyData: json.data });

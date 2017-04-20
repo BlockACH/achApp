@@ -1,5 +1,7 @@
 /* global $:true*/
 import React from 'react';
+import Loading from 'react-component-loading';
+
 import SettleTr from './settleTr';
 import bankList from '../mock/bankList';
 
@@ -10,8 +12,9 @@ class SettleTable extends React.Component {
     this.state = {
       tableData: [],
       defaultTableData: [],
-      startDate: '',
-      endDate: '',
+      startDate: '01050601',
+      endDate: '01050602',
+      isLoading: false,
     };
 
     this.startDataOnChange = this.startDataOnChange.bind(this);
@@ -21,7 +24,8 @@ class SettleTable extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://ach.csie.org:8514/bank/address')
+    const port = $('#bank-port').html();
+    fetch(`http://ach.csie.org:${port}/bank/address`)
       .then(response => response.json())
       .then((json) => {
         this.setState({ defaultTableData: json.data });
@@ -40,7 +44,9 @@ class SettleTable extends React.Component {
 
   handleBankResultData(tableData) {
     const tableBankList = Object.keys(tableData);
-    const handledData = {};
+    const handledData = {
+      EA0: 0,
+    };
     for (let i = 0; i < tableBankList.length; i += 1) {
       const bank = tableBankList[i];
       if (bankList.indexOf(bank) > -1) {
@@ -49,37 +55,56 @@ class SettleTable extends React.Component {
         handledData.EA0 += tableData[bank];
       }
     }
+    console.log(JSON.stringify(handledData, null, 4));
     return handledData;
   }
 
   dbSettleRequest() {
     console.log('Click dbSettleRequest!');
-    console.log(JSON.stringify(this.state, null, 4));
-    const baseUrl = 'http://ach.csie.org:8514/settlement/db';
+    const port = $('#bank-port').html();
+    const baseUrl = `http://ach.csie.org:${port}/settlement/db`;
     const params = `?start=${this.state.startDate}&end=${this.state.endDate}`;
-
+    this.setState({ isLoading: true });
     fetch(`${baseUrl}${params}`)
       .then(response => response.json())
       .then((json) => {
         this.setState({ tableData: json.data });
+        this.setState({ isLoading: false });
         console.log('TableData set!');
       });
   }
 
   renderTableBody() {
+    const handledData = this.handleBankResultData(this.state.tableData);
     return Object.keys(this.state.tableData).length ?
-      Object.keys(this.handleBankResultData(this.state.tableData)).map(key => (
+      Object.keys(handledData).map(key => (
         <SettleTr
+          key={key}
           bankCode={key}
           address={this.state.defaultTableData[key]}
-          amount={this.state.tableData[key]}
+          amount={handledData[key]}
         />)) :
       Object.keys(this.state.defaultTableData).map(key =>
         <SettleTr
+          key={key}
           bankCode={key}
           address={this.state.defaultTableData[key]}
           amount={0}
         />);
+  }
+
+  renderLoadingAnimation() {
+    return this.state.isLoading ?
+      (
+        <div style={{ marginLeft: '100px', marginTop: '10px' }}>
+          <Loading
+            type="square-arrange"
+            color="#2A3F54"
+            width="40"
+            height="26"
+          />
+        </div>
+      ) : null;
   }
 
   render() {
@@ -88,6 +113,7 @@ class SettleTable extends React.Component {
       <div className="x_panel">
         <div className="x_title">
           <h2> 清算實況 </h2>
+          {this.renderLoadingAnimation()}
           <button
             id="history-collect"
             type="button"

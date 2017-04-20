@@ -5,7 +5,9 @@
   "main": "main.js",
   "dependencies": {
     "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react-component-loading": "^0.1.2",
+    "react-dom": "^0.14.0",
+    "react-loading": "0.0.9"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",

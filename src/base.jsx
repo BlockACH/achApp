@@ -14,7 +14,27 @@ class ContentHandler extends React.Component {
     super(props);
     this.state = {
       page: null,
+      currentBank: '',
+      bankPort: '',
     };
+    this.currentBankOnChange = this.currentBankOnChange.bind(this);
+    this.bankPortOnChange = this.bankPortOnChange.bind(this);
+    this.clickLogin = this.clickLogin.bind(this);
+  }
+
+  clickLogin() {
+    $('#current-user').text(this.state.currentBank);
+    $('#bank-port').text(this.state.bankPort);
+  }
+
+  currentBankOnChange(e) {
+    const value = e.target.value;
+    this.setState({ currentBank: value });
+  }
+
+  bankPortOnChange(e) {
+    const value = e.target.value;
+    this.setState({ bankPort: value });
   }
 
   render() {
@@ -25,6 +45,32 @@ class ContentHandler extends React.Component {
     return (
       <div className="col-md-12 col-sm-12 col-xs-12">
         <h2> 歡迎來到媒體交換業務 </h2>
+        <input
+          id="username"
+          className="form-control"
+          name="username"
+          placeholder="username"
+          required="required"
+          type="text"
+          style={{ width: '20%' }}
+          onChange={this.currentBankOnChange}
+        />
+        <input
+          id="password"
+          className="form-control"
+          name="password"
+          placeholder="password"
+          required="required"
+          type="password"
+          style={{ width: '20%' }}
+          onChange={this.bankPortOnChange}
+        />
+        <button
+          style={{ margin: '10px 0 0 10px' }}
+          onClick={this.clickLogin}
+        >
+          Login
+        </button>
       </div>
     );
   }
