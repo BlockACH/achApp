@@ -1,4 +1,3 @@
-/* global $:true*/
 import React from 'react';
 import Tr from './checkTxTr';
 
