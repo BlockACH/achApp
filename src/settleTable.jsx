@@ -1,9 +1,9 @@
-/* global $:true*/
 import React from 'react';
 import Loading from 'react-component-loading';
 
 import SettleTr from './settleTr';
 import bankList from '../mock/bankList';
+import globalStore from './global';
 
 class SettleTable extends React.Component {
   constructor(props) {
@@ -24,8 +24,8 @@ class SettleTable extends React.Component {
   }
 
   componentDidMount() {
-    const port = $('#bank-port').html();
-    fetch(`http://ach.csie.org:${port}/bank/address`)
+    const url = `${globalStore.getBaseUrl()}/bank/address`;
+    fetch(url)
       .then(response => response.json())
       .then((json) => {
         this.setState({ defaultTableData: json.data });

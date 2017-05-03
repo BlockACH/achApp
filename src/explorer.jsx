@@ -1,4 +1,3 @@
-/* global $:true*/
 import React from 'react';
 import ExplorerCell from './explorerCell';
 import ExplorerHead from './explorerHead';

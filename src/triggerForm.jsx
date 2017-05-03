@@ -1,6 +1,5 @@
-/* global $:true*/
-
 import React from 'react';
+import globalStore from './global';
 
 class TriggerForm extends React.Component {
   constructor(props) {
@@ -15,8 +14,8 @@ class TriggerForm extends React.Component {
   }
 
   getHistoryData(txType) {
-    const port = $('#bank-port').html();
-    fetch(`http://ach.csie.org:${port}/history-data/collect?txtype=${txType}`)
+    const url = `${globalStore.getBaseUrl()}/history-data/collect?txtype=${txType}`;
+    fetch(url)
       .then(response => response.json())
       .then((json) => {
         this.setState({ historyData: json.data });
