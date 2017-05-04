@@ -4,6 +4,7 @@ import Loading from 'react-component-loading';
 import SettleTr from './settleTr';
 import bankList from '../mock/bankList';
 import globalStore from './global';
+import { getJson } from './apiClient';
 
 class SettleTable extends React.Component {
   constructor(props) {
@@ -25,11 +26,9 @@ class SettleTable extends React.Component {
 
   componentDidMount() {
     const url = `${globalStore.getBaseUrl()}/bank/address`;
-    fetch(url)
-      .then(response => response.json())
-      .then((json) => {
-        this.setState({ defaultTableData: json.data });
-      });
+    getJson(url).then((json) => {
+      this.setState({ defaultTableData: json.data });
+    });
   }
 
   startDataOnChange(e) {
@@ -61,17 +60,14 @@ class SettleTable extends React.Component {
 
   dbSettleRequest() {
     console.log('Click dbSettleRequest!');
-    const port = $('#bank-port').html();
-    const baseUrl = `http://ach.csie.org:${port}/settlement/db`;
-    const params = `?start=${this.state.startDate}&end=${this.state.endDate}`;
+    const params = `start=${this.state.startDate}&end=${this.state.endDate}`;
+    const url = `${globalStore.getBaseUrl()}/db?${params}`;
     this.setState({ isLoading: true });
-    fetch(`${baseUrl}${params}`)
-      .then(response => response.json())
-      .then((json) => {
-        this.setState({ tableData: json.data });
-        this.setState({ isLoading: false });
-        console.log('TableData set!');
-      });
+    getJson(url).then((json) => {
+      this.setState({ tableData: json.data });
+      this.setState({ isLoading: false });
+      console.log('TableData set!');
+    });
   }
 
   renderTableBody() {
