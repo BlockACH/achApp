@@ -23,7 +23,7 @@ class TriggerForm extends React.Component {
 
   submit(e) {
     e.preventDefault();
-    const url = `${globalStore.getBaseUrl()}/transactions/trigger`;
+    const url = `${globalStore.getBaseUrl()}/transactions/ready`;
     const data = {
       trigger_bank: globalStore.bank,
       receive_bank: this.state.receiveBank,
@@ -32,6 +32,7 @@ class TriggerForm extends React.Component {
     };
     postJson(url, data).then((json) => {
       console.log('submit:', json.data);
+      alert('已發動！');
     });
   }
 
@@ -95,7 +96,7 @@ class TriggerForm extends React.Component {
                 className="control-label col-md-3 col-sm-3 col-xs-12"
                 htmlFor="tx-type"
               >
-              交易類別（代收、代付、代收退件、代付退件）
+              交易類別（代收、代付）
               <span className="required">*</span>
               </label>
               <div className="col-md-6 col-sm-6 col-xs-12">
