@@ -1,25 +1,38 @@
 import React from 'react';
 import globalStore from './global';
+import { getJson, postJson } from './apiClient';
 
 class TriggerForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      page: null,
       historyData: {},
     };
 
     this.getHistoryData = this.getHistoryData.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   getHistoryData(txType) {
     const url = `${globalStore.getBaseUrl()}/history-data/collect?txtype=${txType}`;
-    fetch(url)
-      .then(response => response.json())
-      .then((json) => {
-        this.setState({ historyData: json.data });
-      });
+    getJson(url).then((json) => {
+      this.setState({ historyData: json.data });
+    });
+  }
+
+  submit(e) {
+    e.preventDefault();
+    const url = `${globalStore.getBaseUrl()}/transactions/trigger`;
+    const data = {
+      trigger_bank: globalStore.bank,
+      receive_bank: this.state.receiveBank,
+      type: this.state.type,
+      amount: this.state.amount,
+    };
+    postJson(url, data).then((json) => {
+      console.log('submit:', json.data);
+    });
   }
 
   render() {
@@ -30,7 +43,10 @@ class TriggerForm extends React.Component {
           <div className="clearfix" />
         </div>
         <div className="x_content">
-          <form className="form-horizontal form-label-left" >
+          <form
+            className="form-horizontal form-label-left"
+            onSubmit={this.submit}
+          >
             <span className="section">發動交易資料</span>
             <div className="item form-group">
               <label
@@ -47,8 +63,10 @@ class TriggerForm extends React.Component {
                   data-validate-length-range={6}
                   data-validate-words={2}
                   name="trigger-bank"
-                  required="required" type="text"
-                  value={this.state.historyData.trigger_bank}
+                  required="required"
+                  type="text"
+                  value={globalStore.bank}
+                  readOnly
                 />
               </div>
             </div>
@@ -68,6 +86,7 @@ class TriggerForm extends React.Component {
                   required="required"
                   className="form-control col-md-7 col-xs-12"
                   value={this.state.historyData.receive_bank}
+                  onChange={(e) => { this.setState({ receiveBank: e.target.value }); }}
                 />
               </div>
             </div>
@@ -87,6 +106,16 @@ class TriggerForm extends React.Component {
                   required="required"
                   className="form-control col-md-7 col-xs-12"
                   value={this.state.historyData.tx_type}
+                  onChange={(e) => {
+                    const rawType = e.target.value;
+                    let type = null;
+                    if (rawType === '代付') {
+                      type = 'SC';
+                    } else if (rawType === '代收') {
+                      type = 'SD';
+                    }
+                    this.setState({ type });
+                  }}
                 />
               </div>
             </div>
@@ -107,14 +136,17 @@ class TriggerForm extends React.Component {
                   data-validate-minmax="0,10000000000000"
                   className="form-control col-md-7 col-xs-12"
                   value={this.state.historyData.amount}
+                  onChange={(e) => {
+                    this.setState({ amount: parseInt(e.target.value, 10) });
+                  }}
                 />
               </div>
             </div>
             <div className="ln_solid" />
             <div className="form-group">
               <div className="col-md-6 col-md-offset-3">
-                <button id="cancel" type="button" className="btn btn-primary">Cancel</button>
-                <button id="send" type="button" className="btn btn-success">Submit</button>
+                <button id="cancel" type="reset" className="btn btn-primary">Cancel</button>
+                <button id="send" type="submit" className="btn btn-success">Submit</button>
                 <button
                   id="history-collect"
                   type="button"
