@@ -1,20 +1,37 @@
 import React from 'react';
 import Tr from './checkTxTr';
-
+import { getJson } from './apiClient';
 
 class CheckTxList extends React.Component {
-  static get defaultProps() {
+  static get propTypes() {
     return {
-      title: 'Title!',
-      subtitle: 'This is subtitle...',
+      title: React.PropTypes.string.isRequired,
+      subtitle: React.PropTypes.string.isRequired,
+      acceptUrl: React.PropTypes.string.isRequired,
+      rejectUrl: React.PropTypes.string.isRequired,
+      fetchTxsUrl: React.PropTypes.string.isRequired,
     };
   }
 
-  static get propTypes() {
-    return {
-      title: React.PropTypes.string,
-      subtitle: React.PropTypes.string,
+  constructor(props) {
+    super(props);
+    this.state = {
+      txs: [],
     };
+    this.removeTx = this.removeTx.bind(this);
+  }
+
+  componentDidMount() {
+    getJson(this.props.fetchTxsUrl).then((json) => {
+      this.setState({ txs: json.data });
+    });
+  }
+
+  removeTx(txKey) {
+    const txs = this.state.txs;
+    this.setState({
+      txs: txs.filter(tx => tx.key !== txKey),
+    });
   }
 
   render() {
@@ -37,24 +54,22 @@ class CheckTxList extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <Tr
-                pbank="玉山銀行"
-                rbank="兆豐銀行"
-                type="代收"
-                amount={100}
-              />
-              <Tr
-                pbank="第一銀行"
-                rbank="兆豐銀行"
-                type="代付"
-                amount={3000}
-              />
-              <Tr
-                pbank="玉山銀行"
-                rbank="兆豐銀行"
-                type="代付"
-                amount={500}
-              />
+              {
+                this.state.txs.map(tx =>
+                  <Tr
+                    key={tx.key}
+                    pbank={tx.trigger_bank}
+                    rbank={tx.receive_bank}
+                    type={(tx.type === 'SD') ? '代收' : '代付'}
+                    status={tx.status}
+                    amount={tx.amount}
+                    txKey={tx.key}
+                    acceptUrl={this.props.acceptUrl}
+                    rejectUrl={this.props.rejectUrl}
+                    removeTx={this.removeTx}
+                  />,
+                )
+              }
             </tbody>
           </table>
         </div>

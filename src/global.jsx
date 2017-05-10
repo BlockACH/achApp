@@ -7,7 +7,7 @@ class GlobalStore {
   }
 
   getBaseUrl() {
-    return `http://ach.csie.org:${this.port}/${this.model}`;
+    return `http://ach.csie.org:${this.port}/${this.model}/${this.bank}`;
   }
 }
 
