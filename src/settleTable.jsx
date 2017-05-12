@@ -2,7 +2,6 @@ import React from 'react';
 import Loading from 'react-component-loading';
 
 import SettleTr from './settleTr';
-import bankList from '../mock/bankList';
 import globalStore from './global';
 import { getJson } from './apiClient';
 
@@ -11,8 +10,7 @@ class SettleTable extends React.Component {
     super(props);
 
     this.state = {
-      tableData: [],
-      defaultTableData: [],
+      banks: [],
       startDate: '01050601',
       endDate: '01050602',
       isLoading: false,
@@ -21,13 +19,12 @@ class SettleTable extends React.Component {
     this.startDataOnChange = this.startDataOnChange.bind(this);
     this.endDataOnChange = this.endDataOnChange.bind(this);
     this.dbSettleRequest = this.dbSettleRequest.bind(this);
-    this.handleBankResultData = this.handleBankResultData.bind(this);
   }
 
   componentDidMount() {
-    const url = `${globalStore.getBaseUrl()}/bank/address`;
+    const url = `${globalStore.getBaseUrl()}/banks`;
     getJson(url).then((json) => {
-      this.setState({ defaultTableData: json.data });
+      this.setState({ banks: json.data });
     });
   }
 
@@ -39,23 +36,6 @@ class SettleTable extends React.Component {
   endDataOnChange(e) {
     const value = e.target.value;
     this.setState({ endDate: value });
-  }
-
-  handleBankResultData(tableData) {
-    const tableBankList = Object.keys(tableData);
-    const handledData = {
-      EA0: 0,
-    };
-    for (let i = 0; i < tableBankList.length; i += 1) {
-      const bank = tableBankList[i];
-      if (bankList.indexOf(bank) > -1) {
-        handledData[bank] = tableData[bank];
-      } else {
-        handledData.EA0 += tableData[bank];
-      }
-    }
-    console.log(JSON.stringify(handledData, null, 4));
-    return handledData;
   }
 
   dbSettleRequest() {
@@ -71,22 +51,17 @@ class SettleTable extends React.Component {
   }
 
   renderTableBody() {
-    const handledData = this.handleBankResultData(this.state.tableData);
-    return Object.keys(this.state.tableData).length ?
-      Object.keys(handledData).map(key => (
-        <SettleTr
-          key={key}
-          bankCode={key}
-          address={this.state.defaultTableData[key]}
-          amount={handledData[key]}
-        />)) :
-      Object.keys(this.state.defaultTableData).map(key =>
-        <SettleTr
-          key={key}
-          bankCode={key}
-          address={this.state.defaultTableData[key]}
-          amount={0}
-        />);
+    return this.state.banks.map(bank =>
+      <SettleTr
+        key={bank.bank_id}
+        bankCode={bank.bank_id}
+        address={bank.address}
+        amount={
+          (globalStore.model === 'settle') ?
+          bank.balance : `${bank.balance} / ${bank.unsettled_balance}`
+        }
+      />,
+    );
   }
 
   renderLoadingAnimation() {
@@ -104,7 +79,6 @@ class SettleTable extends React.Component {
   }
 
   render() {
-    const renderedTableBody = this.renderTableBody();
     return (
       <div className="x_panel">
         <div className="x_title">
@@ -150,10 +124,13 @@ class SettleTable extends React.Component {
               <tr>
                 <th>銀行代碼</th>
                 <th>銀行地址</th>
-                <th>數位貨幣餘額</th>
+                <th>{
+                  (globalStore.model === 'settle') ?
+                  '數位貨幣餘額' : '數位貨幣餘額（已清算 / 待清算）'
+                }</th>
               </tr>
             </thead>
-            <tbody>{renderedTableBody}</tbody>
+            <tbody>{this.renderTableBody()}</tbody>
           </table>
         </div>
       </div>
