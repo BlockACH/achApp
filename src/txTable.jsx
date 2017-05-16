@@ -26,12 +26,13 @@ class TxTable extends React.Component {
   renderTxTrs() {
     return this.state.tableData.length ? this.state.tableData.map(tx => (
       <TxTr
+        key={tx.created_time}
+        txId={tx.tx_id}
         date={tx.created_time}
         triggerBank={tx.trigger_bank}
         receiveBank={tx.receive_bank}
         amount={tx.amount}
         status={tx.status}
-        txId={tx.tx_id}
       />
     )) : null;
   }
