@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class ExplorerCell extends React.Component {
   static get propTypes() {
@@ -38,6 +39,7 @@ class ExplorerCell extends React.Component {
   }
 
   renderBlocks() {
+    const dateString = moment.unix(this.props.timestamp).format();
     return (
       <div className="x_panel fixed_height_180">
         <div className="x_title">
@@ -47,7 +49,7 @@ class ExplorerCell extends React.Component {
           >
             {this.props.blockHash}
           </button>
-          <h2 className="pull-right">04/03/2017 07:31:39</h2>
+          <h2 className="pull-right">{dateString}</h2>
           <div className="clearfix" />
         </div>
         <button

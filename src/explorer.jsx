@@ -3,10 +3,14 @@ import ExplorerCell from './explorerCell';
 import ExplorerHead from './explorerHead';
 import blocksData from '../mock/blocks';
 
+import globalStore from './global';
+import { getJson } from './apiClient';
+
 class Explorer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      blocksData,
       historyData: {},
       cellType: 'Blocks',
       pageType: 'Dashboard', // 'Dashboard', 'Block', 'Address', 'Transaction'
@@ -17,6 +21,13 @@ class Explorer extends React.Component {
 
     this.changePageType = this.changePageType.bind(this);
     this.backButtonClick = this.backButtonClick.bind(this);
+  }
+
+  componentDidMount() {
+    const blocksUrl = `${globalStore.getExplorerBaseUrl()}/explorer/v1/blocks`;
+    getJson(blocksUrl).then((json) => {
+      this.setState({ blocksData: json });
+    });
   }
 
   changePageType(pageData) {
@@ -35,7 +46,12 @@ class Explorer extends React.Component {
 
   renderBackButton() {
     return this.state.pageType !== 'Dashboard' ?
-      <button onClick={this.backButtonClick} >Back</button> : null;
+      <button
+        onClick={this.backButtonClick}
+        className="btn btn-primary"
+      >
+        Back
+      </button> : null;
   }
 
   renderHead() {
@@ -46,10 +62,11 @@ class Explorer extends React.Component {
 
   renderCells() {
     return this.state.pageType === 'Dashboard' ?
-      blocksData.blocks.map(block => (
+      this.state.blocksData.blocks.map(block => (
         <ExplorerCell
+          key={block.hash}
           cellType="Blocks"
-          timestamp={14000000}
+          timestamp={block.time}
           blockHeight={parseInt(block.height, 10)}
           blockHash={block.hash}
           transactionAmount={parseInt(block.transaction_count, 10)}
