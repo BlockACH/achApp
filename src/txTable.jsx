@@ -31,7 +31,7 @@ class TxTable extends React.Component {
         receiveBank={tx.receive_bank}
         amount={tx.amount}
         status={tx.status}
-        txId={tx.txid}
+        txId={tx.tx_id}
       />
     )) : null;
   }
