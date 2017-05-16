@@ -5,7 +5,14 @@ function SettleTr(props) {
     <tr>
       <td>{props.bankCode}</td>
       <td>{props.address}</td>
-      <td className={props.amount < 1000 ? 'red' : ''}>{props.amount}</td>
+      {
+        props.unsettledBalance === undefined ?
+          <td className={props.balance < 1000 ? 'red' : ''}>{props.balance}</td>
+          :
+          <td className={props.balance + props.unsettledBalance < 1000 ? 'red' : ''}>
+            {props.balance} / {props.unsettledBalance}
+          </td>
+      }
     </tr>
   );
 }
@@ -13,7 +20,8 @@ function SettleTr(props) {
 SettleTr.propTypes = {
   bankCode: React.PropTypes.string.isRequired,
   address: React.PropTypes.string.isRequired,
-  amount: React.PropTypes.number.isRequired,
+  balance: React.PropTypes.number.isRequired,
+  unsettledBalance: React.PropTypes.number,
 };
 
 export default SettleTr;

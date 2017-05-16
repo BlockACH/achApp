@@ -23,7 +23,7 @@ function TxTr(props) {
 }
 
 TxTr.propTypes = {
-  txId: React.PropTypes.string.isRequired,
+  txId: React.PropTypes.string,
   triggerBank: React.PropTypes.string.isRequired,
   receiveBank: React.PropTypes.string.isRequired,
   date: React.PropTypes.string.isRequired,

@@ -56,10 +56,8 @@ class SettleTable extends React.Component {
         key={bank.bank_id}
         bankCode={bank.bank_id}
         address={bank.address}
-        amount={
-          (globalStore.model === 'settle') ?
-          bank.balance : `${bank.balance} / ${bank.unsettled_balance}`
-        }
+        balance={bank.balance}
+        unsettledBalance={bank.unsettled_balance}
       />,
     );
   }
