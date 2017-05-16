@@ -11,7 +11,7 @@ function TchPage() {
           subtitle="待 TCH 審核交易"
           acceptUrl={`${globalStore.getBaseUrl()}/transactions/approve`}
           rejectUrl={`${globalStore.getBaseUrl()}/transactions/destroy`}
-          fetchTxsUrl={`${globalStore.getBaseUrl()}/transactions/query`}
+          fetchTxsUrl={`${globalStore.getBaseUrl()}/transactions/query?s=accepted`}
         />
       </div>
     </div>
