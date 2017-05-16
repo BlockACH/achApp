@@ -35,7 +35,12 @@ class Explorer extends React.Component {
 
   renderBackButton() {
     return this.state.pageType !== 'Dashboard' ?
-      <button onClick={this.backButtonClick} >Back</button> : null;
+      <button
+        onClick={this.backButtonClick}
+        className="btn btn-primary"
+      >
+        Back
+      </button> : null;
   }
 
   renderHead() {
