@@ -1,10 +1,39 @@
 /* global $:true*/
 import React from 'react';
 import TxTr from './txTr';
+import globalStore from './global';
+import { getJson } from './apiClient';
 
 class TxTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tableData: [],
+    };
+
+    this.renderTxTrs = this.renderTxTrs.bind(this);
+  }
+
   componentDidMount() {
-    $('#datatable').dataTable();
+    // $('#datatable').dataTable();
+    const url = `${globalStore.getBaseUrl()}/transactions/query`;
+    getJson(url).then((json) => {
+      this.setState({ tableData: json.data });
+    });
+  }
+
+  renderTxTrs() {
+    return this.state.tableData.length ? this.state.tableData.map(tx => (
+      <TxTr
+        date={tx.created_time}
+        triggerBank={tx.trigger_bank}
+        receiveBank={tx.receive_bank}
+        amount={tx.amount}
+        status={tx.status}
+        txId={tx.txid}
+      />
+    )) : null;
   }
 
   render() {
@@ -21,49 +50,16 @@ class TxTable extends React.Component {
           <table id="datatable" className="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>Tx Id</th>
+                <th>發動行</th>
+                <th>收受行</th>
                 <th>交易日期</th>
                 <th>金額</th>
                 <th>交易狀態</th>
+                <th>Tx Id</th>
               </tr>
             </thead>
             <tbody>
-              <TxTr
-                txId="51b78168d94ec307e2855697209275d477e05d8647caf29cb9e38fb6a4661145"
-                date="2017-02-16"
-                amount={100000}
-                status="代收確認中"
-              />
-              <TxTr
-                txId="647caf29cb9e38fb6a451b78168d94ec307e2855697209275d477e05d8661145"
-                date="2017-02-16"
-                amount={121300}
-                status="交付TCH確認"
-              />
-              <TxTr
-                txId="d8647caf29cb9e38fb6a51b78168d94ec30775d477e054661145e28556972092"
-                date="2017-02-16"
-                amount={9810}
-                status="已完成"
-              />
-              <TxTr
-                txId="e2855697209275d477e05d8647caf29cb9e38fb6a466114551b78168d94ec307"
-                date="2017-02-16"
-                amount={781900}
-                status="已拒絕"
-              />
-              <TxTr
-                txId="51b78168209275d477e05d8647caf29cb9e38fb6a4661145d94ec307e2855697"
-                date="2017-02-16"
-                amount={10}
-                status="代收確認中"
-              />
-              <TxTr
-                txId="05d8647caf29cb9e38fb6a466114551b78168d94ec307e2855697209275d477e"
-                date="2017-02-16"
-                amount={700}
-                status="已完成"
-              />
+              {this.renderTxTrs()}
             </tbody>
           </table>
         </div>

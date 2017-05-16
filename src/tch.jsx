@@ -3,7 +3,7 @@ import CheckTxList from './checkTxList';
 import globalStore from './global';
 
 function TchPage() {
-  return (
+  return globalStore.bank === 'TCH' && globalStore.model === 'settle' ? (
     <div className="row">
       <div className="col-md-12 col-sm-12 col-xs-12">
         <CheckTxList
@@ -15,7 +15,11 @@ function TchPage() {
         />
       </div>
     </div>
-  );
+  ) : <div className="row">
+    <div className="col-md-12 col-sm-12 col-xs-12">
+      <h2>Forbidden!</h2>
+    </div>
+  </div>;
 }
 
 export default TchPage;
