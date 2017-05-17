@@ -45,7 +45,7 @@ class ExplorerHead extends React.Component {
     } else {
       // Value is a transaction.
       pageType = 'Transaction';
-      cellType = 'Transactions';
+      cellType = 'Transaction';
       address = '';
       txHash = value;
       blockHash = '';
