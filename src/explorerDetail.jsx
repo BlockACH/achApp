@@ -133,7 +133,37 @@ class ExplorerCell extends React.Component {
     );
   }
 
+  renderFlowVins() {
+    const vins = this.state.detailData.vins || [];
+    return vins.length ? vins.map(vin => (
+      <div>
+        <a>{vin.address}</a>
+        {parseInt(vin.color, 10) === 1 ? (
+          <b className="pull-right green">{parseFloat(vin.amount, 10) / 1e8}</b>
+        ) : (
+          <b className="pull-right">{parseFloat(vin.amount, 10) / 1e8}</b>
+        )}
+      </div>
+    )) : null;
+  }
+
+  renderFlowVouts() {
+    const vouts = this.state.detailData.vouts || [];
+    return vouts.length ? vouts.map(vout => (
+      <div>
+        <a>{vout.address}</a>
+        <b
+          className="pull-right"
+          style={{ 'margin-left': '30px' }}
+        >
+          {parseFloat(vout.amount, 10) / 1e8}
+        </b>
+      </div>
+    )) : null;
+  }
+
   renderFlowDetail() {
+    const dateString = moment.unix(this.state.detailData.time).format();
     return (
       <div className="x_panel fixed_height_180">
         <div className="x_title">
@@ -141,31 +171,31 @@ class ExplorerCell extends React.Component {
             type="button"
             className="btn btn-round btn-warning"
           >
-            43b66168af6fd87fed9e360d83bc87ebc1fce8f91c737c353f986823a7ea32f7
+            {this.state.detailData.hash}
           </button>
-          <h2 className="pull-right">02/23/2017 15:18:46</h2>
+          <h2 className="pull-right">{dateString}</h2>
           <div className="clearfix" />
         </div>
         <div className="x_content">
           <div className="col-md-6">
-            <a>vbuCzQwZbmk1fV17axgyKCN2VLVm74pdSX</a>
+            {this.renderFlowVins()}
           </div>
           <i className="fa fa-arrow-right" />
           <div className="pull-right">
-            <a>bmk1fVpd17axgyKCN2VLVm74vbuCzQwZSX</a>
+            {this.renderFlowVouts()}
           </div>
         </div>
         <button
           type="button"
           className="pull-right btn btn-round btn-primary"
         >
-          215 Confirmation
+          {this.state.detailData.confirmation} Confirmation
         </button>
         <button
           type="button"
           className="pull-right btn btn-round btn-success"
         >
-          100 Satoshis
+          {this.getVioSum('vouts')} Satoshis
         </button>
       </div>
     );
