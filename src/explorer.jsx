@@ -1,6 +1,7 @@
 import React from 'react';
 import ExplorerCell from './explorerCell';
 import ExplorerHead from './explorerHead';
+import ExplorerDetail from './explorerDetail';
 import blocksData from '../mock/blocks';
 
 import globalStore from './global';
@@ -17,6 +18,7 @@ class Explorer extends React.Component {
       address: '',
       txHash: '',
       blockHash: '',
+      txData: {},
     };
 
     this.changePageType = this.changePageType.bind(this);
@@ -76,6 +78,14 @@ class Explorer extends React.Component {
       null;
   }
 
+  renderDetail() {
+    return this.state.pageType === 'Transaction' ?
+      <ExplorerDetail
+        detailType="Transaction"
+        txHash={this.state.txHash}
+      /> : null;
+  }
+
   render() {
     return (
       <div>
@@ -83,6 +93,7 @@ class Explorer extends React.Component {
         {this.renderHead()}
         <h1>{this.state.cellType}</h1>
         {this.renderCells()}
+        {this.renderDetail()}
       </div>
     );
   }
