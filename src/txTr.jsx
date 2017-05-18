@@ -6,8 +6,8 @@ function TxTr(props) {
     ready: '等待收受行確認',
     accepted: globalStore.model === 'settle' ? '等待 TCH 審核' : '已完成',
     rejected: '收受行已拒絕',
-    approved: 'TCH 已審核通過',
-    destroyed: 'TCH 審核失敗',
+    approved: 'Approved',
+    destroyed: 'Destroyed',
   };
 
   return (
