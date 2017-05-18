@@ -20,7 +20,7 @@ class ExplorerCell extends React.Component {
 
   static get defaultProps() {
     return {
-      cellType: 'Transactions',
+      cellType: 'Transaction',
       sourceAddresses: [],
       destinationAddresses: [],
       amount: 0,
@@ -56,7 +56,7 @@ class ExplorerCell extends React.Component {
           type="button"
           className="pull-right btn btn-round btn-primary"
         >
-          {this.props.transactionAmount} Transactions
+          {this.props.transactionAmount} Transaction(s)
         </button>
         <button
           type="button"
@@ -113,7 +113,7 @@ class ExplorerCell extends React.Component {
   }
 
   render() {
-    const renderedCell = this.props.cellType === 'Transactions' ?
+    const renderedCell = this.props.cellType === 'Transaction' ?
       this.renderTxs() : this.renderBlocks();
 
     return renderedCell;
