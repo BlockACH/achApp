@@ -58,7 +58,10 @@ class Explorer extends React.Component {
 
   renderHead() {
     return this.state.pageType === 'Dashboard' ?
-      <ExplorerHead searchBarClick={this.changePageType} /> :
+      <ExplorerHead
+        searchBarClick={this.changePageType}
+        blocksData={this.state.blocksData}
+      /> :
       null;
   }
 

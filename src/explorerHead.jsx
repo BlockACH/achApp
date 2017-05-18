@@ -4,6 +4,7 @@ class ExplorerHead extends React.Component {
   static get propTypes() {
     return {
       searchBarClick: React.PropTypes.func.isRequired,
+      blocksData: React.PropTypes.object.isRequired,
     };
   }
 
@@ -61,6 +62,8 @@ class ExplorerHead extends React.Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.props.blocksData, null, 4));
+    const blocksAmount = this.props.blocksData ? this.props.blocksData.blocks[0].height : 0;
     return (
       <div>
         <div className="col-md-8 col-sm-8 col-xs-12 form-group pull-right top_search">
@@ -87,13 +90,13 @@ class ExplorerHead extends React.Component {
           <div className="row tile_count">
             <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-clock-o" /> Best Blocks</span>
-              <div className="count">37</div>
+              <div className="count">{blocksAmount}</div>
               <span className="count_bottom"> block #</span>
             </div>
             <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-clock-o" /> Last Blocks</span>
-              <div className="count">29 </div>
-              <span className="count_bottom">sec ago</span>
+              <div className="count">{blocksAmount}</div>
+              <span className="count_bottom">12 secs ago</span>
             </div>
             <div className="col-md-4 col-sm-8 col-xs-12 tile_stats_count">
               <span className="count_top"><i className="fa fa-user" /> Health</span>
