@@ -10,7 +10,10 @@ function SettleTr(props) {
           <td className={props.balance < 1000 ? 'red' : ''}>{props.balance}</td>
           :
           <td className={props.balance + props.unsettledBalance < 1000 ? 'red' : ''}>
-            {props.balance} / {props.unsettledBalance}
+            {props.balance} / {
+              props.unsettledBalance > 0 ?
+              `+${props.unsettledBalance}` : props.unsettledBalance
+            }
           </td>
       }
     </tr>
