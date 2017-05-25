@@ -61,13 +61,23 @@ class ExplorerCell extends React.Component {
     return fee;
   }
 
+  getOpReturnsFromVout() {
+    const vouts = this.state.detailData.vouts || [];
+    for (let i = 0; i < vouts.length; i += 1) {
+      if (vouts[i].op_return_data) {
+        return vouts[i].op_return_data;
+      }
+    }
+    return 'This Tx has no OP_RETURN';
+  }
+
   renderOpReturns() {
-    return this.state.opReturns.map(opReturn => (
+    return (
       <tr>
         <th scope="row">OP_RETURN</th>
-        <td>{opReturn}</td>
+        <td>{this.getOpReturnsFromVout()}</td>
       </tr>
-    ));
+    );
   }
 
   renderTxDetail() {
@@ -87,10 +97,10 @@ class ExplorerCell extends React.Component {
             <div className="clearfix" />
           </div>
           <div className="x_content">
-            <table className="table table-hover">
+            <table style={{ 'word-break': 'break-all' }} className="table table-hover">
               <thead>
                 <tr>
-                  <th>Hash</th>
+                  <th style={{ width: '160px' }}>Hash</th>
                   <th>{hash}</th>
                 </tr>
               </thead>
@@ -102,14 +112,6 @@ class ExplorerCell extends React.Component {
                 <tr>
                   <th scope="row">Sum of outgoing txs</th>
                   <td>{this.getVioSum('vouts')}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Traded</th>
-                  <td>{this.getVioSum('vouts')}</td>
-                </tr>
-                <tr>
-                  <th scope="row">Fee</th>
-                  <td>{this.getFee()}</td>
                 </tr>
                 <tr>
                   <th scope="row">Confirmations</th>
@@ -154,7 +156,7 @@ class ExplorerCell extends React.Component {
         <a>{vout.address}</a>
         <b
           className="pull-right"
-          style={{ 'margin-left': '30px' }}
+          style={{ marginLeft: '30px' }}
         >
           {parseFloat(vout.amount, 10) / 1e8}
         </b>
