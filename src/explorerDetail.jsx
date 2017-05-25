@@ -136,21 +136,25 @@ class ExplorerCell extends React.Component {
   }
 
   renderFlowVins() {
-    const vins = this.state.detailData.vins || [];
+    let vins = this.state.detailData.vins || [];
+    if (globalStore.model === 'settle') {
+      vins = vins.filter(x => x.color === 2);
+    }
     return vins.length ? vins.map(vin => (
       <div>
         <a>{vin.address}</a>
-        {parseInt(vin.color, 10) === 1 ? (
-          <b className="pull-right green">{parseFloat(vin.amount, 10) / 1e8}</b>
-        ) : (
-          <b className="pull-right">{parseFloat(vin.amount, 10) / 1e8}</b>
-        )}
+        <b className="pull-right">{parseFloat(vin.amount, 10) / 1e8}</b>
       </div>
     )) : null;
   }
 
   renderFlowVouts() {
-    const vouts = this.state.detailData.vouts || [];
+    let vouts = this.state.detailData.vouts || [];
+    // this is dirty code!!!!
+    vouts = vouts.filter(x => !x.op_return_data);
+    if (globalStore.model === 'settle') {
+      vouts = vouts.filter(x => x.color === '2');
+    }
     return vouts.length ? vouts.map(vout => (
       <div>
         <a>{vout.address}</a>
