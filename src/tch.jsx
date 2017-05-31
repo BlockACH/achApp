@@ -42,6 +42,20 @@ class TchPage extends React.Component {
         return (
           <div className="row">
             <div className="col-md-12 col-sm-12 col-xs-12">
+              <div className="x_title">
+                <h2> 鑄幣至銀行 </h2>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  style={{
+                    marginLeft: 20,
+                  }}
+                  onClick={() => alert('鑄幣成功！')}
+                >
+                  鑄！
+                </button>
+                <div className="clearfix" />
+              </div>
               <CheckTxList
                 title="TCH 審核"
                 subtitle="待 TCH 審核交易"

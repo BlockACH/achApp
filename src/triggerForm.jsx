@@ -96,7 +96,7 @@ class TriggerForm extends React.Component {
                 className="control-label col-md-3 col-sm-3 col-xs-12"
                 htmlFor="tx-type"
               >
-              交易類別（代收、代付）
+              交易類別（代付 1、代收 2）
               <span className="required">*</span>
               </label>
               <div className="col-md-6 col-sm-6 col-xs-12">
@@ -110,9 +110,9 @@ class TriggerForm extends React.Component {
                   onChange={(e) => {
                     const rawType = e.target.value;
                     let type = null;
-                    if (rawType === '代付') {
+                    if (rawType === '1') {
                       type = 'SC';
-                    } else if (rawType === '代收') {
+                    } else if (rawType === '2') {
                       type = 'SD';
                     }
                     this.setState({ type });
@@ -148,7 +148,7 @@ class TriggerForm extends React.Component {
               <div className="col-md-6 col-md-offset-3">
                 <button id="cancel" type="reset" className="btn btn-primary">Cancel</button>
                 <button id="send" type="submit" className="btn btn-success">Submit</button>
-                <button
+                {/* <button
                   id="history-collect"
                   type="button"
                   className="btn btn-dark"
@@ -163,7 +163,7 @@ class TriggerForm extends React.Component {
                   onClick={() => this.getHistoryData('SC')}
                 >
                   歷史代付資料
-                </button>
+                </button> */}
               </div>
             </div>
           </form>

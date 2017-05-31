@@ -84,7 +84,7 @@ class SettleTable extends React.Component {
       <div className="x_panel">
         <div className="x_title">
           <h2> 清算實況 </h2>
-          {this.renderLoadingAnimation()}
+          {/* {this.renderLoadingAnimation()}
           <button
             id="history-collect"
             type="button"
@@ -113,7 +113,7 @@ class SettleTable extends React.Component {
             placeholder="start"
             style={{ width: '150px', marginRight: '10px', float: 'right' }}
             onChange={this.startDataOnChange}
-          />
+          /> */}
           <div className="clearfix" />
         </div>
         <div className="x_content">

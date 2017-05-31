@@ -1,5 +1,6 @@
 /* global $:true*/
 import React from 'react';
+import moment from 'moment';
 import TxTr from './txTr';
 import globalStore from './global';
 import { getJson } from './apiClient';
@@ -28,7 +29,7 @@ class TxTable extends React.Component {
       <TxTr
         key={tx.created_time}
         txId={tx.tx_id}
-        date={tx.created_time}
+        date={moment.unix(tx.created_time).format()}
         triggerBank={tx.trigger_bank}
         receiveBank={tx.receive_bank}
         amount={tx.amount}
