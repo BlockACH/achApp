@@ -34,6 +34,7 @@ class TxTable extends React.Component {
         receiveBank={tx.receive_bank}
         amount={tx.amount}
         status={tx.status}
+        type={tx.type}
       />
     )) : null;
   }
@@ -54,6 +55,7 @@ class TxTable extends React.Component {
               <tr>
                 <th>發動行</th>
                 <th>收受行</th>
+                <th>交易類型</th>
                 <th>交易日期</th>
                 <th>金額</th>
                 <th>交易狀態</th>

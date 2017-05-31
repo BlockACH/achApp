@@ -3,9 +3,9 @@ import globalStore from './global';
 
 function TxTr(props) {
   const statusTable = {
-    ready: '等待收受行確認',
-    accepted: globalStore.model === 'settle' ? '等待 TCH 審核' : '已完成',
-    rejected: '收受行已拒絕',
+    ready: 'Ready',
+    accepted: 'Accepted',
+    rejected: 'Rejected',
     approved: 'Approved',
     destroyed: 'Destroyed',
   };
@@ -14,6 +14,7 @@ function TxTr(props) {
     <tr>
       <td>{props.triggerBank}</td>
       <td>{props.receiveBank}</td>
+      <td>{props.type === 'SC' ? '代付' : '代收'}</td>
       <td>{props.date}</td>
       <td>{props.amount}</td>
       <td>{statusTable[props.status]}</td>
@@ -29,6 +30,7 @@ TxTr.propTypes = {
   date: React.PropTypes.number.isRequired,
   amount: React.PropTypes.number.isRequired,
   status: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string.isRequired,
 };
 
 export default TxTr;
