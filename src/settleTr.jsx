@@ -20,6 +20,10 @@ function SettleTr(props) {
   );
 }
 
+SettleTr.defaultProps = {
+  unsettledBalance: undefined,
+};
+
 SettleTr.propTypes = {
   bankCode: React.PropTypes.string.isRequired,
   address: React.PropTypes.string.isRequired,

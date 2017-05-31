@@ -58,7 +58,7 @@ class SettleTable extends React.Component {
         address={bank.address}
         balance={parseInt(bank.balance, 10)}
         unsettledBalance={
-          (bank.unsettled_balance) ?
+          (bank.unsettled_balance !== undefined) ?
           parseInt(bank.unsettled_balance, 10) : undefined
         }
       />,

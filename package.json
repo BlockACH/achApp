@@ -32,6 +32,7 @@
     "start": "ENVIRONMENT=DEV ./node_modules/.bin/electron .",
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack-dev-server --hot --inline",
-    "osx-package": "./node_modules/.bin/webpack -p && ./node_modules/electron-packager/cli.js ./ ElectronReactSass --out ./bin --platform=darwin --arch=x64 --version=0.34.0 --overwrite --ignore=\"ignore|bin|node_modules\""
+    "osx-package": "./node_modules/.bin/webpack -p && ./node_modules/electron-packager/cli.js ./ ElectronReactSass --out ./bin --platform=darwin --arch=x64 --version=0.34.0 --overwrite --ignore=\"ignore|bin|node_modules\"",
+    "win-package": "webpack --config webpack.config.js && electron-packager .  --platform=win32 --arch=all --overwrite"
   }
 }
